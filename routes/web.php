@@ -24,3 +24,5 @@ Route::get('/categories/new','HomeController@categories');
 Route::get('/categories', 'HomeController@listindex'); // Retrieves list of items
 
 Route::post('store-category','HomeController@store');
+
+Route::get('categories/{category}/delete', 'HomeController@destroy');
