@@ -78,6 +78,33 @@
 
     <main class="py-4">
         @yield('content')
+        <h1 class="text-center my-5"> Add New Content</h1>
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card card-default">
+                    <div class="card-header">Add category</div>
+                    <div class="card-body">
+                        @if (session('status'))
+                            <div class="alert alert-success" role="alert">
+                                {{ session('status') }}
+                            </div>
+                        @endif
+
+                        <form action="/store-category" method="POST">
+                            @csrf
+                            <div class="form-group">
+                                <input type="text" class="form-control" placeholder="Category" name="category">
+                            </div>
+                            <div class="form-group text-center">
+                                <button type="submit" class="btn btn-success">Add Category</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
     </main>
 </div>
 </body>

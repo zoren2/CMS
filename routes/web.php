@@ -18,3 +18,9 @@ Route::get('/', function () {
 Auth::routes(); // List of routes for authentication
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::get('/categories/new','HomeController@categories');
+
+Route::get('/categories', 'HomeController@listindex'); // Retrieves list of items
+
+Route::post('store-category','HomeController@store');
