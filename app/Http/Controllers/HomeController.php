@@ -47,7 +47,7 @@ class HomeController extends Controller
     public function store()
     {
         $this->validate(request(), [
-            'name' => 'requred|min:2|max:24'
+            'category' => 'required|min:2|max:24'
         ]);
 
         $data = request()->all();
@@ -67,5 +67,22 @@ class HomeController extends Controller
         return redirect('/categories');
     }
 
+    public function edit(Category $category)
+    {
+        return view('edit')->with('category', $category);
+    }
+
+    public function update(Category $category)
+    {
+        $this->validate(request(), [
+            'category' => 'required|min:2|max:24'
+        ]);
+
+        $data = request()->all();
+        $category->category = $data['category'];
+        $category->save();
+        session()->flash('success', 'Category updated successfully.');
+        return redirect('/categories');
+    }
 
 }

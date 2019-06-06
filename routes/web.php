@@ -17,12 +17,16 @@ Route::get('/', function () {
 
 Auth::routes(); // List of routes for authentication
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('home', 'HomeController@index')->name('home');
 
-Route::get('/categories/new','HomeController@categories');
+Route::get('categories/new','HomeController@categories');
 
-Route::get('/categories', 'HomeController@listindex'); // Retrieves list of items
+Route::get('categories', 'HomeController@listindex'); // Retrieves list of items
 
 Route::post('store-category','HomeController@store');
 
 Route::get('categories/{category}/delete', 'HomeController@destroy');
+
+Route::get('categories/{category}/edit', 'HomeController@edit');
+
+Route::post('categories/{category}/update-categories', 'HomeController@update');
