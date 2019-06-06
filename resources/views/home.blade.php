@@ -13,7 +13,7 @@
                                 {{ session('status') }}
                             </div>
                         @endif
-                        <a href="/categories/new">Add Categories</a>
+                        Welcome. You are logged in.
                     </div>
                 </div>
 

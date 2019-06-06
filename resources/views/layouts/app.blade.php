@@ -23,8 +23,8 @@
 <div id="app">
     <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
         <div class="container">
-            <a class="navbar-brand" href="{{ url('/') }}">
-                {{ config('app.name', 'Laravel') }}
+            <a class="navbar-brand" href="/home">
+                {{ config('app.name', 'CMS') }}
             </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
                     aria-controls="navbarSupportedContent" aria-expanded="false"
@@ -77,7 +77,32 @@
     </nav>
 
     <main class="py-4">
-        @yield('content')
+        @auth
+            <div class="container">
+                @if(session()->has('success'))
+                    <div class="alert alert-success">
+                        {{session()->get('success')}}
+                    </div>
+                @endif
+                <div class="row">
+                    <div class="col-md-4">
+                        <ul class="list-group">
+                            <li class="list-group-item">
+                                <a href="/posts">Posts</a>
+                            </li>
+                            <li class="list-group-item">
+                                <a href="/categories">Categories</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col-md-8">
+                        @yield('content')
+                    </div>
+                </div>
+            </div>
+        @else
+            @yield('content')
+        @endauth
     </main>
 </div>
 </body>
