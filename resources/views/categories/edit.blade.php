@@ -3,7 +3,7 @@
 @section('content')
     <div class="card card-default">
         <div class="card-header">
-            Create category
+            Edit category
         </div>
         <div class="card-body">
             @if($errors->any())
@@ -17,15 +17,18 @@
                     </ul>
                 </div>
             @endif
-            <form action="{{route('categories.store')}}" method="POST">
+            <form action="{{route('categories.update', $category->id)}}" method="POST">
+                <input type="hidden" name="_method" value="PUT">
                 @csrf
                 <div class="form-group">
                     <label for="name">Name</label>
-                    <input type="text" id="name" class="form-control" name="name">
+                    <input type="text" id="name" class="form-control" name="name" value="{{$category->name}}">
                 </div>
 
                 <div class="form-group">
-                    <button type="submit" class="btn btn-success">Add Category</button>
+                    <button class="btn btn-success" type="submit">
+                        Edit
+                    </button>
                 </div>
             </form>
         </div>
