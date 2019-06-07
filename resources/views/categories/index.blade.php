@@ -1,7 +1,6 @@
 @extends('layouts.app')
 
 @section('content')
-
     <div class="d-flex justify-content-end mb-2">
         <a class="btn btn-success" href="{{route('categories.create')}}">Add Category</a>
     </div>
@@ -10,7 +9,6 @@
         <div class="card-header">
             Categories
         </div>
-
         <div class="card-body">
             <table class="table">
                 <thead>
