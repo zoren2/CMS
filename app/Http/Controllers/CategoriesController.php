@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Category;
 use Illuminate\Http\Request;
-use App\Http\Requests\CreateCategoryRequest;
+use App\Http\Requests\Categories\CreateCategoryRequest;
+use App\Http\Requests\Categories\UpdateCategoriesRequest;
+
 
 class CategoriesController extends Controller
 {
@@ -69,19 +71,13 @@ class CategoriesController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request $request
-     * @param  int $id
-     * @return \Illuminate\Http\Response
+     * @param UpdateCategoriesRequest $request
+     * @param Category $category
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function update(Request $request, $id)
+    public function update(UpdateCategoriesRequest $request, Category $category)
     {
-        $this->validate($request, [
-            'name' => "required|min:2"
-        ]);
-        $category = Category::find($id);
-        $category->name = $request['name'];
+        $category->name = $request->name;
         $category->save();
         session()->flash('success', 'Category edited successfully');
 
