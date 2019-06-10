@@ -21,3 +21,5 @@ Route::get('home', 'HomeController@index')->name('home');
 
 Route::resource('categories', 'CategoriesController')->middleware('auth');
 
+Route::resource('posts', 'PostsController')->middleware('auth');
+
