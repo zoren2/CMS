@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Categories\UpdateCategoriesRequest;
+use App\Http\Requests\Posts\UpdatePostRequest;
 use App\Http\Requests\Posts\CreatePostsRequest;
 use Illuminate\Http\Request;
 use App\Post;
@@ -44,7 +46,8 @@ class PostsController extends Controller
             'title' => $request->title,
             'description' => $request->description,
             'content' => $request->content,
-            'image' => $image
+            'image' => $image,
+            'published_at' => $request->published_at
         ]);
 
         // flash message
@@ -66,26 +69,41 @@ class PostsController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int $id
-     * @return \Illuminate\Http\Response
+     * @param Post $post
      */
-    public function edit($id)
+    public function edit(Post $post)
     {
-        //
+        return view('posts.create')->with('post', $post);
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request $request
-     * @param  int $id
-     * @return \Illuminate\Http\Response
+     * @param UpdateCategoriesRequest $request
+     * @param Post $Post
+     * @return \Illuminate\Http\Respons
      */
-    public function update(Request $request, $id)
+    public function update(UpdatePostRequest $request, Post $post)
     {
-        //
+        // Pull only title, desc, published at, and content fields
+        $data = $request->only(['title', 'description', 'published_at', 'content']);
+
+        // check if new image was selected
+        if ($request->hasFile('image')) {
+            // upload the new image
+            $image = $request->image->store('posts', 'public');
+            // delete old image
+            Storage::disk('public')->delete($post->image);
+
+            $data['image'] = $image;
+        }
+        // update attributes
+        $post->update($data);
+
+        // store mesage
+        session()->flash('success', 'Post updated successfully');
+        // redirect user
+        return redirect(route('posts.index'));
     }
 
     /**
