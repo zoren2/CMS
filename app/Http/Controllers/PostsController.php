@@ -98,4 +98,14 @@ class PostsController extends Controller
         session()->flash('success', 'Post trashed successfully.');
         return redirect(route('posts.index'));
     }
+
+    /**
+     * @return \Illuminate\Http\Response
+     */
+    public function trashed()
+    {
+        $trashed = Post::withTrashed()->get();
+
+        return view('posts.index')->withPosts($trashed);
+    }
 }
