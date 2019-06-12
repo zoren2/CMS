@@ -36,7 +36,7 @@ class PostsController extends Controller
     public function store(CreatePostsRequest $request)
     {
         // upload the image to the storage
-        $image = $request->image->store('posts','public');
+        $image = $request->image->store('posts', 'public');
 
         // create the post
         Post::create([
@@ -88,13 +88,14 @@ class PostsController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int $id
-     * @return \Illuminate\Http\Response
+     * @param Post $post
+     * @throws \Exception
      */
-    public function destroy($id)
+    public function destroy(Post $post)
     {
-        //
+        $post->delete(); // Soft Deleting
+
+        session()->flash('success', 'Post trashed successfully.');
+        return redirect(route('posts.index'));
     }
 }
