@@ -88,15 +88,28 @@ class PostsController extends Controller
     }
 
     /**
-     * @param Post $post
+     * Removes a post from the database. Soft deleting does not work with route
+     * model binding.
+     *
+     * @param $id
      * @throws \Exception
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function destroy(Post $post)
+    public function destroy($id)
     {
-        $post->delete(); // Soft Deleting
+        $post = Post::withTrashed()->where('id', $id)->firstOrFail();
+        // If the post is only trashed then delete permanently from database.
+        if ($post->trashed()) {
+            $post->forceDelete();
+            session()->flash('success', 'Post deleted successfully.');
+            return redirect(route('trashed-posts.index'));
+        } // If the post hasn't been trashed yet, then soft delete.
+        else {
+            $post->delete();
+            session()->flash('success', 'Post trashed successfully.');
+            return redirect(route('posts.index'));
+        }
 
-        session()->flash('success', 'Post trashed successfully.');
-        return redirect(route('posts.index'));
     }
 
     /**
@@ -105,7 +118,6 @@ class PostsController extends Controller
     public function trashed()
     {
         $trashed = Post::withTrashed()->get();
-
         return view('posts.index')->withPosts($trashed);
     }
 }
