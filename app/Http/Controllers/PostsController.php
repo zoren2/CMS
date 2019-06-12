@@ -93,7 +93,7 @@ class PostsController extends Controller
             // upload the new image
             $image = $request->image->store('posts', 'public');
             // delete old image
-            Storage::disk('public')->delete($post->image);
+            $post->deleteImage();
 
             $data['image'] = $image;
         }
@@ -119,7 +119,7 @@ class PostsController extends Controller
         $post = Post::withTrashed()->where('id', $id)->firstOrFail();
         // If the post is only trashed then delete permanently from database.
         if ($post->trashed()) {
-            Storage::disk('public')->delete($post->image);
+            $post->deleteImage();
             $post->forceDelete();
             session()->flash('success', 'Post deleted successfully.');
             return redirect(route('trashed-posts.index'));
@@ -137,7 +137,18 @@ class PostsController extends Controller
      */
     public function trashed()
     {
-        $trashed = Post::withTrashed()->get();
+        $trashed = Post::onlyTrashed()->get();
         return view('posts.index')->withPosts($trashed);
+    }
+
+    /*
+     *
+     */
+    public function restore($id)
+    {
+        $post = Post::withTrashed()->where('id', $id)->firstOrFail();
+        $post->restore();
+        session()->flash('success', 'Post restored successfully');
+        return view('posts.index')->withPosts(Post::onlyTrashed()->get()); // Returns view with trashed items
     }
 }

@@ -24,3 +24,5 @@ Route::resource('categories', 'CategoriesController')->middleware('auth');
 Route::resource('posts', 'PostsController')->middleware('auth');
 
 Route::get('trashed-posts', 'PostsController@trashed')->name('trashed-posts.index');
+
+Route::put('restore-posts/{post}', 'PostsController@restore')->name('restore-posts');
