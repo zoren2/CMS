@@ -2,12 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Category;
 use App\Http\Requests\Categories\UpdateCategoriesRequest;
-use App\Http\Requests\Posts\UpdatePostRequest;
 use App\Http\Requests\Posts\CreatePostsRequest;
-use Illuminate\Http\Request;
+use App\Http\Requests\Posts\UpdatePostRequest;
 use App\Post;
-use Illuminate\Support\Facades\Storage;
 
 
 class PostsController extends Controller
@@ -29,7 +28,7 @@ class PostsController extends Controller
      */
     public function create()
     {
-        return view('posts.create');
+        return view('posts.create')->with('categories', Category::all());
     }
 
     /**
@@ -47,7 +46,8 @@ class PostsController extends Controller
             'description' => $request->description,
             'content' => $request->content,
             'image' => $image,
-            'published_at' => $request->published_at
+            'published_at' => $request->published_at,
+            'category_id' => $request->category
         ]);
 
         // flash message
@@ -70,10 +70,15 @@ class PostsController extends Controller
 
     /**
      * @param Post $post
+     * @return $this
      */
     public function edit(Post $post)
     {
-        return view('posts.create')->with('post', $post);
+        // Multiple Variables passed to posts.create by passing array instead of chaining withs
+        return view('posts.create')->with([
+            'post' => $post,
+            'categories' => Category::all()
+        ]);
     }
 
     /**
@@ -81,7 +86,7 @@ class PostsController extends Controller
      *
      * @param UpdateCategoriesRequest $request
      * @param Post $Post
-     * @return \Illuminate\Http\Respons
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
     public function update(UpdatePostRequest $request, Post $post)
     {
@@ -103,7 +108,7 @@ class PostsController extends Controller
         // store mesage
         session()->flash('success', 'Post updated successfully');
         // redirect user
-        return redirect(route('posts.index'));
+        return redirect(route('posts . index'));
     }
 
     /**
@@ -121,9 +126,9 @@ class PostsController extends Controller
         if ($post->trashed()) {
             $post->deleteImage();
             $post->forceDelete();
-            session()->flash('success', 'Post deleted successfully.');
-            return redirect(route('trashed-posts.index'));
-        } // If the post hasn't been trashed yet, then soft delete.
+            session()->flash('success', 'Post deleted successfully . ');
+            return redirect(route('trashed - posts . index'));
+        } // If the post hasn't been trashed yet, then soft delete .
         else {
             $post->delete();
             session()->flash('success', 'Post trashed successfully.');

@@ -14,19 +14,23 @@
                 <table class="table">
                     <thead>
                     <th>Name</th>
+                    <th>Posts Count</th>
                     </thead>
                     <tbody>
                     @foreach($categories as $category)
                         <tr>
                             <td>
                                 {{$category->name}}
-
-                                <a class="btn btn-danger float-right"
+                            </td>
+                            <td>
+                                {{$category->posts->count()}}
+                            </td>
+                            <td>
+                                <a class="btn btn-info float-right"
                                    href="{{route('categories.edit', $category->id)}}">Edit
-                                    Category</a>
-
+                                </a>
                                 <!-- The modal -->
-                                <button type="button" class="btn btn-primary float-right mx-2" data-toggle="modal"
+                                <button type="button" class="btn btn-danger mx-2 float-right" data-toggle="modal"
                                         data-target="#delete">
                                     Delete
                                 </button>
