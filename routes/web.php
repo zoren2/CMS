@@ -17,12 +17,14 @@ Route::get('/', function () {
 
 Auth::routes(); // List of routes for authentication
 
-Route::get('home', 'HomeController@index')->name('home');
 
-Route::resource('categories', 'CategoriesController')->middleware('auth');
+Route::middleware(['auth'])->group(function () {
+    Route::get('home', 'HomeController@index')->name('home');
+    Route::resource('categories', 'CategoriesController')->middleware('auth');
 
-Route::resource('posts', 'PostsController')->middleware('auth');
+    Route::resource('posts', 'PostsController')->middleware('auth');
 
-Route::get('trashed-posts', 'PostsController@trashed')->name('trashed-posts.index');
+    Route::get('trashed-posts', 'PostsController@trashed')->name('trashed-posts.index');
 
-Route::put('restore-posts/{post}', 'PostsController@restore')->name('restore-posts');
+    Route::put('restore-posts/{post}', 'PostsController@restore')->name('restore-posts');
+});
