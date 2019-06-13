@@ -7,7 +7,7 @@
         </div>
         <div class="card-body">
             @include('partials.errors')
-            <form action="{{isset($tag) ? route('categories.update', $tag->id) : route('categories.store')}}"
+            <form action="{{isset($tag) ? route('tags.update', $tag->id) : route('tags.store')}}"
                   method="POST">
                 @csrf
                 @if(isset($tag))

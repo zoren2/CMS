@@ -7,6 +7,7 @@ use App\Http\Requests\Categories\UpdateCategoriesRequest;
 use App\Http\Requests\Posts\CreatePostsRequest;
 use App\Http\Requests\Posts\UpdatePostRequest;
 use App\Post;
+use App\Tag;
 
 
 class PostsController extends Controller
@@ -33,7 +34,10 @@ class PostsController extends Controller
      */
     public function create()
     {
-        return view('posts.create')->with('categories', Category::all());
+        return view('posts.create')->with([
+            'categories' => Category::all(),
+            'tags' => Tag::all()
+        ]);
     }
 
     /**
@@ -45,8 +49,9 @@ class PostsController extends Controller
         // upload the image to the storage
         $image = $request->image->store('posts', 'public');
 
+
         // create the post
-        Post::create([
+        $post = Post::create([
             'title' => $request->title,
             'description' => $request->description,
             'content' => $request->content,
@@ -55,6 +60,10 @@ class PostsController extends Controller
             'category_id' => $request->category
         ]);
 
+        // If the request contains tags
+        if ($request->tags) {
+            $post->tags()->attach($request->tags); // Attaches tags due to belongsToMany relationship
+        }
         // flash message
         session()->flash('success', 'Post created successfully.');
 
@@ -82,7 +91,8 @@ class PostsController extends Controller
         // Multiple Variables passed to posts.create by passing array instead of chaining withs
         return view('posts.create')->with([
             'post' => $post,
-            'categories' => Category::all()
+            'categories' => Category::all(),
+            'tags' => Tag::all()
         ]);
     }
 
@@ -113,7 +123,7 @@ class PostsController extends Controller
         // store mesage
         session()->flash('success', 'Post updated successfully');
         // redirect user
-        return redirect(route('posts . index'));
+        return redirect(route('posts.index'));
     }
 
     /**

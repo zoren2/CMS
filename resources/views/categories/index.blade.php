@@ -29,11 +29,14 @@
                                 <a class="btn btn-info float-right"
                                    href="{{route('categories.edit', $category->id)}}">Edit
                                 </a>
+                            </td>
                                 <!-- The modal -->
+                                <td>
                                 <button type="button" class="btn btn-danger mx-2 float-right" data-toggle="modal"
                                         data-target="#delete">
                                     Delete
                                 </button>
+                                </td>
                                 <div class="modal fade" id="delete" tabindex="-1" role="dialog"
                                      aria-labelledby="modalLabel"
                                      aria-hidden="true">

@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="d-flex justify-content-end mb-2">
-        <a class="btn btn-success" href="{{route('tags.create')}}">Add Category</a>
+        <a class="btn btn-success" href="{{route('tags.create')}}">Add Tag</a>
     </div>
 
     <div class="card card-default">
@@ -17,18 +17,20 @@
                     <th>Posts Count</th>
                     </thead>
                     <tbody>
-                    @foreach($tags as $category)
+                    @foreach($tags as $tag)
                         <tr>
                             <td>
-                                {{$category->name}}
+                                {{$tag->name}}
                             </td>
                             <td>
-                                {{$category->posts->count()}}
+                                {{$tag->posts->count()}}
                             </td>
                             <td>
                                 <a class="btn btn-info float-right"
-                                   href="{{route('tags.edit', $category->id)}}">Edit
+                                   href="{{route('tags.edit', $tag->id)}}">Edit
                                 </a>
+                            </td>
+                            <td>
                                 <!-- The modal -->
                                 <button type="button" class="btn btn-danger mx-2 float-right" data-toggle="modal"
                                         data-target="#delete">
@@ -50,7 +52,7 @@
                                                 Are you sure you want to delete?
                                             </div>
                                             <div class="modal-footer">
-                                                <form action="{{route('tags.destroy', $category->id)}}"
+                                                <form action="{{route('tags.destroy', $tag->id)}}"
                                                       method="POST">
                                                     <input type="hidden" name="_method" value="DELETE">
                                                     @csrf
