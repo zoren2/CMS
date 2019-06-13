@@ -83,6 +83,12 @@
                         {{session()->get('success')}}
                     </div>
                 @endif
+
+                @if(session()->has('error'))
+                    <div class="alert alert-success">
+                        {{session()->get('error')}}
+                    </div>
+                @endif
                 <div class="row">
                     <div class="col-md-4">
                         <ul class="list-group">

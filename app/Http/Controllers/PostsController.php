@@ -11,6 +11,11 @@ use App\Post;
 
 class PostsController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('verifyCategoriesCount')->only(['create', 'store']);
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -127,7 +132,7 @@ class PostsController extends Controller
             $post->deleteImage();
             $post->forceDelete();
             session()->flash('success', 'Post deleted successfully . ');
-            return redirect(route('trashed - posts . index'));
+            return redirect(route('trashed-posts.index'));
         } // If the post hasn't been trashed yet, then soft delete .
         else {
             $post->delete();
