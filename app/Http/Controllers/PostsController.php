@@ -99,8 +99,8 @@ class PostsController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param UpdateCategoriesRequest $request
-     * @param Post $Post
+     * @param UpdatePostRequest $request
+     * @param Post $post
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
     public function update(UpdatePostRequest $request, Post $post)
@@ -117,6 +117,12 @@ class PostsController extends Controller
 
             $data['image'] = $image;
         }
+
+        // Update tags if they are changed. Sync is used because Post and Tags have a many to many relationship.
+        if ($request->tags) {
+            $post->tags()->sync($request->tags);
+        }
+
         // update attributes
         $post->update($data);
 
@@ -161,8 +167,10 @@ class PostsController extends Controller
         return view('posts.index')->withPosts($trashed);
     }
 
-    /*
-     *
+
+    /**
+     * @param $id
+     * @return mixed
      */
     public function restore($id)
     {
