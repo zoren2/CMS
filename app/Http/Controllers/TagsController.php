@@ -88,12 +88,17 @@ class TagsController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int $id
-     * @return \Illuminate\Http\Response
+     * @param Tag $tag
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     * @throws \Exception
      */
-    public function destroy($id)
+    public function destroy(Tag $tag)
     {
-        $tag = Tag::find($id);
+        if($tag->posts->count() > 0) {
+            session()->flash('error','Tag cannot be deleted, because it is still associated with a post.');
+            return redirect()->back();
+        }
+
         $tag->delete();
         session()->flash('success', 'Tag deleted successfully.');
 
