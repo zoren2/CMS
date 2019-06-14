@@ -19,7 +19,9 @@
                     @foreach($users as $user)
                         <tr>
                             <td>
-                                Image
+                                <!-- Remove inline style -->
+                                <img width="50px" height="50px" style="border-radius:50%"
+                                     src="{{Gravatar::get($user->email)}}">
                             </td>
                             <td>
                                 {{$user->name}}
@@ -29,7 +31,10 @@
                             </td>
                             <td>
                                 @if(!$user->isAdmin())
-                                    <button class="btn btn-success btn-sm">Make Admin</button>
+                                    <form action="{{route('users.make-admin', $user->id)}}" method="post">
+                                        @csrf
+                                        <button type="submit" class="btn btn-success btn-sm">Make Admin</button>
+                                    </form>
                                 @endif
                             </td>
                         </tr>
