@@ -68,6 +68,9 @@
                                     {{ __('Logout') }}
                                 </a>
 
+                                <a class="dropdown-item" href="{{ route('users.edit-profile') }}">
+                                    My Profile
+                                </a>
                                 <form id="logout-form" action="{{ route('logout') }}" method="POST"
                                       style="display: none;">
                                     @csrf
@@ -99,9 +102,9 @@
                         <ul class="list-group">
 
                             @if(auth()->user()->isAdmin())
-                            <li class="list-group-item">
-                                <a href="{{route('users.index')}}">Users</a>
-                            </li>
+                                <li class="list-group-item">
+                                    <a href="{{route('users.index')}}">Users</a>
+                                </li>
                             @endif
                             <li class="list-group-item">
                                 <a href="{{route('posts.index')}}">Posts</a>
