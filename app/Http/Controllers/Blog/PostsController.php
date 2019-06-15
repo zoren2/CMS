@@ -17,21 +17,9 @@ class PostsController extends Controller
 
     public function category(Category $category)
     {
-        $search = request()->query('search');
-
-
-        // If user is searching for a particular category, then filter by category and paginate results
-        if ($search) {
-            $posts = $category->posts()->where('title', 'LIKE', "%{$search}%")->simplePaginate(3);
-        }
-
-        // Otherwise simply return list of paginated categories
-        $posts = $category->posts()->simplePaginate(3);
-
-
         return view('blog.category')->with([
             'category' => $category,
-            'posts' => $category->posts()->simplePaginate(2),
+            'posts' => $category->posts()->searched()->simplePaginate(3),
             'categories' => Category::all(),
             'tags' => Tag::all()
         ]);
@@ -41,7 +29,7 @@ class PostsController extends Controller
     {
         return view('blog.tag')->with([
             'tag' => $tag,
-            'posts' => $tag->posts()->simplePaginate(2),
+            'posts' => $tag->posts()->searched()->simplePaginate(2),
             'categories' => Category::all(),
             'tags' => Tag::all()
         ]);

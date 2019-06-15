@@ -14,24 +14,10 @@ class WelcomeController extends Controller
      */
     public function index()
     {
-
-        $search = request()->query('search');
-
-
-        // If searching, then filter and paginate the result
-        if (request()->query('search')) {
-            $posts = Post::where('title', 'LIKE', "%{$search}%")->simplePaginate(2);
-        }
-
-        // Otherwise simply return paginated posts
-        else {
-            $posts = Post::simplePaginate(2);
-        }
-
         return view('welcome')->with([
             'categories' => Category::all(),
             'tags' => Tag::all(),
-            'posts' => $posts
+            'posts' => Post::searched()->simplePaginate(2)
         ]);
     }
 }

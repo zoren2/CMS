@@ -2,7 +2,7 @@
     <div class="sidebar px-4 py-md-0">
 
         <h6 class="sidebar-title">Search</h6>
-        <form class="input-group" action="{{route('welcome')}}" target="#" method="GET">
+        <form class="input-group" action="" target="#" method="GET">
             <input type="text" class="form-control" name="search" placeholder="Search"
                    value="{{request()->query('search')}}">
             <div class="input-group-addon">

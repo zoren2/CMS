@@ -51,4 +51,20 @@ class Post extends Model
     }
 
 
+    /*
+     * Scope name must be camel cased. This function gets an instance of a query.
+     */
+    public function scopeSearched($query)
+    {
+        $search = request()->query('search');
+
+        // If user is not searching then simply return the query.
+        if (!$search) {
+            return $query;
+        }
+
+        // Returns the query which can be then chained if needed
+        return $query->where('title', 'LIKE', "%{$search}%");
+    }
+
 }
