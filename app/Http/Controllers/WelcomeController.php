@@ -17,10 +17,13 @@ class WelcomeController extends Controller
 
         $search = request()->query('search');
 
+
+        // If searching, then filter and paginate the result
         if (request()->query('search')) {
             $posts = Post::where('title', 'LIKE', "%{$search}%")->simplePaginate(2);
         }
 
+        // Otherwise simply return paginated posts
         else {
             $posts = Post::simplePaginate(2);
         }

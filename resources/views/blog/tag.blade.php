@@ -1,6 +1,6 @@
 @extends('layouts.blog')
 @section('title')
-    Saas Blog
+    Tag {{$tag->name}}
 @endsection
 
 @section('header')
@@ -13,7 +13,7 @@
             <div class="row">
                 <div class="col-md-8 mx-auto">
 
-                    <h1>Latest Blog Posts</h1>
+                    <h1>{{$tag->name}}</h1>
                     <p class="lead-2 opacity-90 mt-6">Read and get updated on how we progress</p>
 
                 </div>
@@ -66,6 +66,7 @@
                         </div>
                         {{$posts->appends(['search' => request()->query('search')])->links()}}
                     </div>
+
 
                     @include('partials.sidebar')
 
