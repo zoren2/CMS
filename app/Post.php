@@ -11,7 +11,7 @@ class Post extends Model
     use SoftDeletes;
 
     protected $fillable = [
-        'title', 'description', 'content', 'image', 'published_at', 'category_id'
+        'title', 'description', 'content', 'image', 'published_at', 'category_id', 'user_id'
     ];
 
     /**
@@ -34,6 +34,11 @@ class Post extends Model
         return $this->belongsToMany(Tag::class);
     }
 
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
     /**
      * Helper function used to check if post has tags
      *
@@ -44,4 +49,6 @@ class Post extends Model
     {
         return in_array($tagId, $this->tags->pluck('id')->toArray());
     }
+
+
 }
