@@ -10,6 +10,11 @@ class Post extends Model
 {
     use SoftDeletes;
 
+    // Treat this field as a date
+    protected $dates = [
+        'published_at'
+    ];
+
     protected $fillable = [
         'title', 'description', 'content', 'image', 'published_at', 'category_id', 'user_id'
     ];
@@ -53,6 +58,7 @@ class Post extends Model
 
     /*
      * Scope name must be camel cased. This function gets an instance of a query.
+     * Then you can call searched() to filter results.
      */
     public function scopeSearched($query)
     {
@@ -65,6 +71,12 @@ class Post extends Model
 
         // Returns the query which can be then chained if needed
         return $query->where('title', 'LIKE', "%{$search}%");
+    }
+
+    public function scopePublished($query)
+    {
+
+        return $query->where('published_at', '<=', now()); // Helper function returns current time
     }
 
 }

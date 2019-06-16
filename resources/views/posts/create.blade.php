@@ -110,7 +110,8 @@
             $('.tags-selector').select2();
         });
         flatpickr('#published_at', {
-            enableTime: true
+            enableTime: true,
+            enableSeconds: true
         });
     </script>
 @endsection

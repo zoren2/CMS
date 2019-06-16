@@ -84,6 +84,6 @@
 <script src="{{asset("js/page.min.js")}}"></script>
 <script src="{{asset("js/script.js")}}"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/js/all.min.js"></script>
-<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js"></script>
+<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5d057f20e5cc8d00"></script>
 </body>
 </html>

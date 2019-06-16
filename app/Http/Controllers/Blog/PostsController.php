@@ -19,7 +19,7 @@ class PostsController extends Controller
     {
         return view('blog.category')->with([
             'category' => $category,
-            'posts' => $category->posts()->searched()->simplePaginate(3),
+            'posts' => $category->posts()->searched()->published()->simplePaginate(3),
             'categories' => Category::all(),
             'tags' => Tag::all()
         ]);
@@ -29,7 +29,7 @@ class PostsController extends Controller
     {
         return view('blog.tag')->with([
             'tag' => $tag,
-            'posts' => $tag->posts()->searched()->simplePaginate(2),
+            'posts' => $tag->posts()->searched()->published()->simplePaginate(2),
             'categories' => Category::all(),
             'tags' => Tag::all()
         ]);
