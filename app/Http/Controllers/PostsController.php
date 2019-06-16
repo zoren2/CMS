@@ -90,13 +90,14 @@ class PostsController extends Controller
      */
     public function edit(Post $post)
     {
-
-        // Multiple Variables passed to posts.create by passing array instead of chaining withs
-        return view('posts.create')->with([
-            'post' => $post,
-            'categories' => Category::all(),
-            'tags' => Tag::all()
-        ]);
+        if (auth()->user()->can('update', $post)) {
+            return view('posts.create')->with([
+                'post' => $post,
+                'categories' => Category::all(),
+                'tags' => Tag::all()
+            ]);
+        }
+        return redirect()->back();
     }
 
     /**

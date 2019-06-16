@@ -36,7 +36,7 @@
                                         data-target="#delete">
                                     Delete
                                 </button>
-                                </td>
+
                                 <div class="modal fade" id="delete" tabindex="-1" role="dialog"
                                      aria-labelledby="modalLabel"
                                      aria-hidden="true">
@@ -55,9 +55,9 @@
                                             <div class="modal-footer">
                                                 <form action="{{route('categories.destroy', $category->id)}}"
                                                       method="POST">
-                                                    <input type="hidden" name="_method" value="DELETE">
                                                     @csrf
-                                                    <button class="btn btn-success">
+                                                    @method('DELETE')
+                                                    <button class="btn btn-success" type="submit" >
                                                         Confirm
                                                     </button>
                                                 </form>

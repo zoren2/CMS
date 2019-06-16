@@ -32,10 +32,12 @@
                             </td>
                             <td>
                                 <!-- The modal -->
+                                <td>
                                 <button type="button" class="btn btn-danger mx-2 float-right" data-toggle="modal"
                                         data-target="#delete">
                                     Delete
                                 </button>
+
                                 <div class="modal fade" id="delete" tabindex="-1" role="dialog"
                                      aria-labelledby="modalLabel"
                                      aria-hidden="true">

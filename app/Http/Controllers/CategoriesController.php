@@ -93,7 +93,15 @@ class CategoriesController extends Controller
      */
     public function destroy($id)
     {
-        $category = Category::find($id);
+
+
+        $category = Category::find($id); // Handled by ID because of soft delete
+
+        if ($category->posts->count() > 0) {
+            session()->flash('error', 'Category cannot be deleted, because it is still associated with a post.');
+            return redirect()->back();
+        }
+
         $category->delete();
         session()->flash('success', 'Category deleted successfully.');
 
