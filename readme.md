@@ -23,7 +23,7 @@ npm run dev
 php artisan serve
 ```
 
-You will also need to setup .env in order to properly communicate with your mySQL database. Begin by copying the template offered by the Laravel Framework. Continue with the command while you are still in the Todo-List directory.
+You will also need to setup .env in order to properly communicate with your mySQL database. Begin by copying the template offered by the Laravel Framework. Continue with the command while you are still in the CMS directory.
 
 ```
 cp .env.example .env
