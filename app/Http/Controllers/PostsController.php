@@ -24,7 +24,8 @@ class PostsController extends Controller
      */
     public function index()
     {
-        return view('posts.index')->with('posts', Post::all());
+        $posts = Post::all()->where('user_id', auth()->user()->id);
+        return view('posts.index')->with('posts', $posts);
     }
 
     /**
@@ -89,6 +90,7 @@ class PostsController extends Controller
      */
     public function edit(Post $post)
     {
+
         // Multiple Variables passed to posts.create by passing array instead of chaining withs
         return view('posts.create')->with([
             'post' => $post,
