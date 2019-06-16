@@ -14,7 +14,7 @@ A content management system for blogging.
 
 Clone the repo to the directory of your choice and install the vendors. 
 
-```
+```$xslt
 git clone https://github.com/zoren2/CMS.git
 cd cms
 npm install
@@ -25,13 +25,13 @@ php artisan serve
 
 You will also need to setup .env in order to properly communicate with your mySQL database. Begin by copying the template offered by the Laravel Framework. Continue with the command while you are still in the CMS directory.
 
-```
+```$xslt
 cp .env.example .env
 ```
 
 You will then need to edit the default fields to match your mySQL connection.
 
-```
+```$xslt
 DB_CONNECTION=mysql
 DB_HOST=127.0.0.1
 DB_PORT=3306
@@ -42,15 +42,21 @@ DB_PASSWORD=secret
 
 Next run the database migrations.
 
-```
+```$xslt
 php artisan migrate
+```
+
+If you would like to seed dummy blog posts into the application, simply run
+
+```$xslt
+php artisan db:seed
 ```
 
 ## Running
 
 Running the project is simple if you already have the required packages to install a Laravel project. Simply start the project on your local machine by running the following command.
 
-```
+```$xslt
 php artisan serve
 ```
 
